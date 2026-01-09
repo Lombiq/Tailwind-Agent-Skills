@@ -12,6 +12,8 @@ wwwroot/
 node_modules/
 *.user
 .pnpm-debug.log
+tmp/
+tmp-tailwindcss.com/
 
 # Mac
 .DS_Store
