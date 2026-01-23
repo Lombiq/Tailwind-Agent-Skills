@@ -2,18 +2,19 @@
 
 ## About
 
-This repository contains [agent skills](https://agentskills.io/home) for Tailwind v4 development tasks. With these skills, you can use your favorite agent efficiently for Tailwind v4 usage, configuration, and migration questions, and even refresh its docs snapshot after installation.
+This repository contains [agent skills](https://agentskills.io/home) for Tailwind v4 development tasks. With these skills, you can use your favorite agent efficiently for Tailwind v4 usage, configuration, and migration questions, and initialize a local docs snapshot after installation.
 
 ## Skills included
 
 ### `tailwind-4-docs`
 
-An agent-optimized snapshot of the Tailwind CSS v4 documentation, including the docs index map and a curated gotchas list.
+An agent-optimized workflow for Tailwind CSS v4 documentation, including a curated gotchas list and a local docs snapshot generator.
 
 Highlights:
-- Mirrors the official Tailwind docs structure so agents can load only what they need.
-- Includes `docs-index.tsx` to map categories and slugs to MDX files.
-- Provides a sync script that can refresh its own references even after you install it from the official Tailwind 4 docs.
+- Mirrors the official Tailwind docs structure so agents can load only what they need after initialization.
+- Generates `docs-index.tsx` locally to map categories and slugs to MDX files.
+- Provides a sync script that can initialize and refresh references after install.
+- Does not bundle the Tailwind docs themselves due to upstream licensing.
 
 ## Installing skills
 
@@ -44,18 +45,20 @@ The skills are agent-agnostic, but each agent has its own discovery locations. H
 - Some Claude plugins include and manage their own skills automatically.
 - Docs: https://code.claude.com/docs/en/skills
 
-## Updating the docs snapshot after install
+## Initializing or updating the docs snapshot after install
 
-This skill can refresh its own references even after you install it. Ask your agent to run the sync script from the installed skill folder.
+This skill can initialize or refresh its own references even after you install it. Ask your agent to run the sync script from the installed skill folder.
 
 How it works (handled by the agent when you ask):
-- It runs the `skills/tailwind-4-docs/scripts/sync_tailwind_docs.py` script.
+- It runs the `skills/tailwind-4-docs/scripts/sync_tailwind_docs.py` script with `--accept-docs-license`.
 - Clones `tailwindcss.com` into a temp folder (or uses `--local-repo` if provided).
 - Copies `src/docs/` into `skills/tailwind-4-docs/references/docs/`.
 - Copies the docs index to `skills/tailwind-4-docs/references/docs-index.tsx`.
 - Records the upstream commit in `skills/tailwind-4-docs/references/docs-source.txt`.
 
-This works in real life as long as the installed skill folder is writable and the agent can run the script. The skill content updates in place, so future reads use the latest docs snapshot.
+This works in real life as long as the installed skill folder is writable, the agent has internet access, and the user can run the script. The skill content updates in place, so future reads use the latest docs snapshot.
+
+Note: The Tailwind docs repo is source-available and explicitly not open-source. This repository does not redistribute the docs. Users are responsible for accepting the upstream license before downloading the snapshot.
 
 ## Contributing
 

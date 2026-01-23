@@ -16,6 +16,7 @@ from pathlib import Path
 
 DEFAULT_REPO_URL = "https://github.com/tailwindlabs/tailwindcss.com"
 DEFAULT_REF = "main"
+LICENSE_URL = "https://github.com/tailwindlabs/tailwindcss.com#license"
 
 
 def run(cmd: list[str], cwd: Path | None = None) -> str:
@@ -63,7 +64,19 @@ def main() -> None:
         default=None,
         help="Use an existing local repo clone instead of cloning a temp copy.",
     )
+    parser.add_argument(
+        "--accept-docs-license",
+        action="store_true",
+        help="Acknowledge the Tailwind docs license before downloading.",
+    )
     args = parser.parse_args()
+
+    if not args.accept_docs_license:
+        raise SystemExit(
+            "This script downloads docs from tailwindcss.com, which is source-available "
+            "but not open-source. Review the license and re-run with "
+            f"--accept-docs-license. License: {LICENSE_URL}"
+        )
 
     skill_root = Path(__file__).resolve().parents[1]
     references_dir = skill_root / "references"
