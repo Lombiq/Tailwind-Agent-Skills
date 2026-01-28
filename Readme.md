@@ -22,9 +22,10 @@ The skills are agent-agnostic, but each agent has its own discovery locations. H
 
 ### GitHub Copilot (coding agent, Copilot CLI, VS Code agent mode)
 
-- Place the skill folders into the `.github/skills/` directory of your repository or VS Code workspace. This is the recommended setup.
+- VS Code reads skills from the workspace (repository). Place the skill folders into the `.github/skills/` directory (recommended).
 - Skills placed under `.claude/skills/` are also detected for backward compatibility.
-- VS Code support is currently in preview and requires VS Code Insiders.
+- For personal (global) skills used by Copilot CLI or the Copilot coding agent, place them in `~/.copilot/skills` or `~/.claude/skills`. On Windows, use `%USERPROFILE%\.copilot\skills` or `%USERPROFILE%\.claude\skills`.
+- VS Code Agent Skills are currently in preview and only available in VS Code Insiders; enable `chat.useAgentSkills` to use them.
 - Docs: https://docs.github.com/copilot/concepts/agents/about-agent-skills
 
 ### OpenAI Codex (CLI and IDE extensions)
@@ -57,6 +58,8 @@ How it works (handled by the agent when you ask):
 - Records the upstream commit in `skills/tailwind-4-docs/references/docs-source.txt`.
 
 This works in real life as long as the installed skill folder is writable, the agent has internet access, and the user can run the script. The skill content updates in place, so future reads use the latest docs snapshot.
+
+Some agents will not run scripts automatically even if the skill asks for it. If the snapshot is missing, explicitly instruct the agent to run the sync command and confirm that `references/docs/` and `references/docs-index.tsx` were created.
 
 Note: The Tailwind docs repo is source-available and explicitly not open-source. This repository does not redistribute the docs. Users are responsible for accepting the upstream license before downloading the snapshot.
 

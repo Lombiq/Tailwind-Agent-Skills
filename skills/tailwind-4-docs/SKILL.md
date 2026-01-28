@@ -15,7 +15,7 @@ The docs snapshot is not bundled with this skill because the upstream repository
 ## Quick start
 
 1. Check whether the docs snapshot is initialized (`references/docs/` and `references/docs-index.tsx` exist).
-2. If missing, run the init step in "Initialization" before continuing.
+2. If missing, stop and ask to run the init step in "Initialization" before continuing. Do not answer the user question until the snapshot exists.
 3. Identify the topic (utility, variant, config, migration, compatibility).
 4. Find the matching doc in `references/docs-index.tsx`.
 5. Load only the relevant file from `references/docs/`.
@@ -32,6 +32,8 @@ python skills/tailwind-4-docs/scripts/sync_tailwind_docs.py --accept-docs-licens
 This pulls content from `tailwindlabs/tailwindcss.com`. That repo is source-available and explicitly not open-source, so the user must accept its license before downloading and keep the snapshot local.
 
 If you cannot run tools or have no internet access, ask the user to run the exact command above in a terminal, then continue once `references/docs/` and `references/docs-index.tsx` exist.
+
+If the snapshot is missing, you must ask for permission to run the command or for the user to run it. Do not proceed with Tailwind guidance until the snapshot is initialized.
 
 If initialization is blocked (no internet or no write access), use `references/gotchas.md` as a limited fallback and ask the user to consult the official docs.
 
