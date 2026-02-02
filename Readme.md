@@ -7,6 +7,7 @@ This repository contains [agent skills](https://agentskills.io/home) for Tailwin
 ## Requirements
 
 - Any agent that supports agent skills.
+- For one-command installation with `npx skills add`, install Node.js (includes `npx`).
 - The `tailwind-4-docs` skill includes a Python script for syncing the docs snapshot. You can run the script manually, but it provides a convenient way to initialize or refresh the snapshot after installation. To use it:
   - Install Python 3.8 or later (available on `PATH`).
   - Install `git` (available on `PATH`).
@@ -43,33 +44,17 @@ License note: The Tailwind docs repo is source-available and explicitly not open
 
 ## Installing skills
 
-The skills are agent-agnostic, but each agent has its own discovery locations. Here are concise setups for common agents:
+The quickest way to install from this repository is to use the `skills` CLI, which detects and installs skills automatically.
 
-### GitHub Copilot (coding agent, Copilot CLI, VS Code agent mode)
+```bash
+npx skills add Lombiq/Tailwind-Agent-Skills
+```
 
-- VS Code reads skills from the workspace (repository). Place the skill folders into the `.github/skills/` directory (recommended).
-- Skills placed under `.claude/skills/` are also detected for backward compatibility.
-- For personal (global) skills used by Copilot CLI or the Copilot coding agent, place them in `~/.copilot/skills` or `~/.claude/skills`. On Windows, use `%USERPROFILE%\.copilot\skills` or `%USERPROFILE%\.claude\skills`.
-- VS Code Agent Skills are currently in preview and only available in VS Code Insiders; enable `chat.useAgentSkills` to use them.
-- Docs: https://docs.github.com/copilot/concepts/agents/about-agent-skills
+If you prefer manual installation, copy the `skills/` subfolders into your agent's skills directory:
+- Project scope: `.github/skills/` (Copilot), `.codex/skills/` (Codex), `.claude/skills/` (Claude Code)
+- Global scope: `~/.copilot/skills/`, `~/.codex/skills/`, `~/.claude/skills/` (or `%USERPROFILE%\\...\\skills` on Windows)
 
-### OpenAI Codex (CLI and IDE extensions)
-
-- Place the skill folders into one of the following locations inside your repository. Codex checks these in order, from highest to lowest priority:
-  ```text
-  $CWD/.codex/skills
-  $CWD/../.codex/skills
-  $REPO_ROOT/.codex/skills
-  ```
-- To make the skills available across all repositories on your machine, place them into `$CODEX_HOME/skills`. On macOS and Linux this defaults to `~/.codex/skills`.
-- Docs: https://developers.openai.com/codex/skills
-
-### Anthropic Claude Code
-
-- To use skills in a single repository or workspace, place the skill folders into `.claude/skills/`.
-- To make the skills available globally for all projects, place them into `~/.claude/skills/`.
-- Some Claude plugins include and manage their own skills automatically.
-- Docs: https://code.claude.com/docs/en/skills
+For GitHub Copilot in VS Code, Agent Skills are currently in preview and available only in VS Code Insiders. Enable `chat.useAgentSkills` to use them. See [the docs](https://docs.github.com/copilot/concepts/agents/about-agent-skills).
 
 ## Contributing
 
