@@ -4,17 +4,42 @@
 
 This repository contains [agent skills](https://agentskills.io/home) for Tailwind v4 development tasks. With these skills, you can use your favorite agent efficiently for Tailwind v4 usage, configuration, and migration questions, and initialize a local docs snapshot after installation.
 
+## Requirements
+
+- Any agent that supports agent skills.
+- The `tailwind-4-docs` skill includes a Python script for syncing the docs snapshot. You can run the script manually, but it provides a convenient way to initialize or refresh the snapshot after installation. To use it:
+  - Install Python 3.8 or later (available on `PATH`).
+  - Install `git` (available on `PATH`).
+  - Enable internet access for the agent.
+  - Ensure the installed skill folder is writable.
+
 ## Skills included
 
 ### `tailwind-4-docs`
 
-An agent-optimized workflow for Tailwind CSS v4 documentation, including a curated gotchas list and a local docs snapshot generator.
+An agent-optimized workflow for Tailwind CSS v4 documentation, including a curated gotchas list and a local docs snapshot generator. Your agent should use this during Tailwind 4 development-related tasks.
 
-Highlights:
+#### Highlights
+
 - Mirrors the official Tailwind docs structure so agents can load only what they need after initialization.
 - Generates `docs-index.tsx` locally to map categories and slugs to MDX files.
-- Provides a sync script that can initialize and refresh references after install.
+- Provides a sync script that can initialize and refresh references after installation.
 - Does not bundle the Tailwind docs themselves due to upstream licensing.
+
+#### Initialization and updates
+
+**IMPORTANT**: Initialize the docs snapshot after installation. If your agent does not do this automatically, ask it to run the sync script (or run it manually). If the snapshot is missing or older than one week, run the sync script before relying on the docs.
+
+Some agents do not run scripts automatically even if the `SKILL.md` asks for it. If the snapshot is missing or older than one week, explicitly instruct the agent to run the sync command and confirm that `references/docs/` and `references/docs-index.tsx` were created.
+
+To initialize the snapshot manually, run `python skills/tailwind-4-docs/scripts/sync_tailwind_docs.py --accept-docs-license`. If you already have a local clone of the source repository, add `--local-repo <path>`.
+
+The script clones `tailwindcss.com` into a temporary folder (or uses the local repo if provided), then copies:
+  - `src/docs/` to `skills/tailwind-4-docs/references/docs/`
+  - `src/docs/docs-index.tsx` to `skills/tailwind-4-docs/references/docs-index.tsx`
+  - the snapshot date and the upstream commit hash to `skills/tailwind-4-docs/references/docs-source.txt`
+
+License note: The Tailwind docs repo is source-available and explicitly not open source. This repository does not redistribute the docs. Users are responsible for accepting the upstream license before downloading the snapshot.
 
 ## Installing skills
 
@@ -45,23 +70,6 @@ The skills are agent-agnostic, but each agent has its own discovery locations. H
 - To make the skills available globally for all projects, place them into `~/.claude/skills/`.
 - Some Claude plugins include and manage their own skills automatically.
 - Docs: https://code.claude.com/docs/en/skills
-
-## Initializing or updating the docs snapshot after install
-
-This skill can initialize or refresh its own references even after you install it. Ask your agent to run the sync script from the installed skill folder.
-
-How it works (handled by the agent when you ask):
-- It runs the `skills/tailwind-4-docs/scripts/sync_tailwind_docs.py` script with `--accept-docs-license`.
-- Clones `tailwindcss.com` into a temp folder (or uses `--local-repo` if provided).
-- Copies `src/docs/` into `skills/tailwind-4-docs/references/docs/`.
-- Copies the docs index to `skills/tailwind-4-docs/references/docs-index.tsx`.
-- Records the upstream commit in `skills/tailwind-4-docs/references/docs-source.txt`.
-
-This works in real life as long as the installed skill folder is writable, the agent has internet access, and the user can run the script. The skill content updates in place, so future reads use the latest docs snapshot.
-
-Some agents will not run scripts automatically even if the skill asks for it. If the snapshot is missing, explicitly instruct the agent to run the sync command and confirm that `references/docs/` and `references/docs-index.tsx` were created.
-
-Note: The Tailwind docs repo is source-available and explicitly not open-source. This repository does not redistribute the docs. Users are responsible for accepting the upstream license before downloading the snapshot.
 
 ## Contributing
 
