@@ -1,8 +1,10 @@
-# Tailwind Agent Skills
+# Lombiq Tailwind Agent Skills
 
 ## About
 
 This repository contains [agent skills](https://agentskills.io/home) for Tailwind v4 development tasks. With these skills, you can use your favorite agent efficiently for Tailwind v4 usage, configuration, and migration questions, and initialize a local docs snapshot after installation.
+
+Do you want something similar for Orchard Core? Check out [Lombiq Orchard Core Agent Skills](https://github.com/Lombiq/Orchard-Core-Agent-Skills)!
 
 ## Requirements
 
