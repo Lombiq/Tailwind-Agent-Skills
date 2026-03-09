@@ -1,8 +1,10 @@
-# Tailwind Agent Skills
+# Lombiq Tailwind Agent Skills
 
 ## About
 
 This repository contains [agent skills](https://agentskills.io/home) for Tailwind v4 development tasks. With these skills, you can use your favorite agent efficiently for Tailwind v4 usage, configuration, and migration questions, and initialize a local docs snapshot after installation.
+
+Do you want something similar for Orchard Core? Check out [Lombiq Orchard Core Agent Skills](https://github.com/Lombiq/Orchard-Core-Agent-Skills)!
 
 ## Requirements
 
@@ -55,7 +57,7 @@ If you prefer manual installation, copy the `skills/` subfolders into your agent
 - Project scope: `.github/skills/` (Copilot), `.codex/skills/` (Codex), `.claude/skills/` (Claude Code)
 - Global scope: `~/.copilot/skills/`, `~/.codex/skills/`, `~/.claude/skills/` (or `%USERPROFILE%\\...\\skills` on Windows)
 
-For GitHub Copilot in VS Code, Agent Skills are currently in preview and available only in VS Code Insiders. Enable `chat.useAgentSkills` to use them. See [the docs](https://docs.github.com/copilot/concepts/agents/about-agent-skills).
+For GitHub Copilot in VS Code, Agent Skills are currently in preview and available only after enabling `chat.useAgentSkills`. See [the docs](https://docs.github.com/copilot/concepts/agents/about-agent-skills).
 
 ## Contributing
 
