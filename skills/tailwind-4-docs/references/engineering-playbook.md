@@ -1,22 +1,6 @@
 # Tailwind Engineering Playbook
 
-Use this reference for implementation, refactor, and review tasks where you need practical engineering judgment in addition to the official Tailwind docs.
-
-This file is intentionally agent-oriented. Its purpose is to help you make good architectural decisions quickly when you are writing or refactoring Tailwind code, especially if you don't already know the project history.
-
-## Framework neutrality
-
-Keep this guidance framework-agnostic by default.
-
-- Do not assume React, Vue, Svelte, Blade, Twig, Razor, Liquid, Orchard Core, or any CMS-specific abstraction unless the repo evidence shows it.
-- Use the host project's own terms for reusable markup:
-  - component
-  - partial
-  - include
-  - template
-  - snippet
-- Do not introduce project-specific terminology like shapes, zones, blocks, or Liquid tags into generic Tailwind guidance unless the target codebase already uses those concepts.
-- If the project already has a framework or CMS abstraction model, adapt this playbook to that model instead of fighting it.
+Use this reference for implementation, refactor, and review tasks where you need practical engineering judgment in addition to the official Tailwind docs. Its purpose is to help you make good architectural decisions quickly when you are writing, reviewing or refactoring Tailwind code.
 
 ## Default workflow
 
@@ -29,14 +13,8 @@ Keep this guidance framework-agnostic by default.
 
 ## Core mindset
 
-- Tailwind is utility-first, not CSS-free.
 - The default move is to compose UI in markup with utilities.
-- Tailwind is not inline styles:
-  - It still gives you pseudo-classes, responsive variants, dark mode, selectors, and generated CSS.
-- Tailwind is not anti-CSS:
-  - Custom CSS is still valuable for tokens, utilities, component classes, rich text, and third-party markup.
-- Tailwind is not a replacement for frontend judgment:
-  - You still need design tokens, responsive thinking, accessibility, state conventions, and review discipline.
+- Custom CSS is still valuable for tokens, utilities, component classes, rich text, and third-party markup.
 
 ## The abstraction ladder
 
@@ -49,11 +27,9 @@ Use this order by default:
 5. If a stable named visual primitive is justified, add a small component class in `@layer components`.
 6. Use `@apply` only as a narrow adapter, not as the main architecture.
 
-If you skip straight to step 5 or 6, you often recreate the same indirection problems Tailwind is meant to reduce.
-
 ## What good reuse looks like
 
-The first level of reuse is the design system itself:
+The first level of reuse is the Tailwind design system itself:
 
 - spacing scale
 - color system
@@ -79,8 +55,6 @@ The third level of reuse is CSS abstraction:
 - custom utilities
 - custom variants
 - small component classes
-
-Do not confuse "this class attribute is long" with "this needs abstraction". Length alone is not the problem. Repetition, instability, and inconsistency are the problems.
 
 ## Tokens first
 
@@ -121,8 +95,6 @@ Use `@theme` when the token should generate utilities or variants.
 Use `:root` only for regular CSS variables that are not supposed to create utility classes.
 
 ## Arbitrary values
-
-Arbitrary values are a pressure-release valve, not the default styling strategy.
 
 Use them for:
 
@@ -219,7 +191,6 @@ Good uses:
 Bad uses:
 
 - hiding all utilities in CSS
-- rebuilding BEM inside Tailwind
 - creating giant semantic wrappers that are harder to reason about than the original markup
 
 If you are using `@apply` heavily to shorten templates, step back and reconsider the abstraction ladder.
@@ -233,7 +204,7 @@ Good candidates:
 - app theme wrappers
 - data-attribute driven states
 - repeated container context selectors
-- CMS-specific context wrappers
+- CMS-specific context wrappers (e.g. dark page section, highlighted block)
 
 Do not create custom variants for one-off selector tricks unless the repetition is real.
 
@@ -249,34 +220,6 @@ Use one of these approaches:
 Do not globally style every `h1`, `p`, `ul`, or `table` in the whole app just to fix one content region.
 
 Scope the styling to the content container.
-
-## Class detection and dynamic classes
-
-Tailwind scans source files as plain text.
-
-That means:
-
-- do not concatenate class name fragments
-- do not interpolate partial utility names
-- map conditions to complete class strings
-
-Prefer:
-
-- `"bg-red-600 text-white"`
-- `"bg-green-600 text-white"`
-
-Avoid:
-
-- `"bg-" + color + "-600"`
-
-Use `@source` when Tailwind cannot detect classes automatically:
-
-- external libraries
-- generated view files
-- unusual source locations
-- shared UI packages
-
-Use `@source inline()` only when you truly need safelisting.
 
 ## Generated DOM and JS-replaced markup
 
@@ -311,25 +254,14 @@ Do not blindly use every default breakpoint if the project intentionally removed
 
 ## File organization
 
-Do not recreate old SCSS architecture just because the project uses CSS files.
-
 For a CSS-first Tailwind v4 setup, this structure is usually sensible:
 
-- entrypoint CSS
-- `theme.css`
-- `base.css`
-- `utilities.css`
-- `components.css`
-- `rich-text.css`
-
-Keep responsibilities clear:
-
-- entrypoint imports
+- entrypoint CSS (`app.css` or `site.css`)
 - `theme.css` for tokens
 - `base.css` for minimal element defaults
 - `utilities.css` for low-level project utilities and variants
 - `components.css` for a small stable component API
-- `rich-text.css` for scoped uncontrolled HTML
+  - Bigger components, e.g. `rich-text.css` for scoped uncontrolled HTML
 
 ## Refactor heuristics
 
@@ -366,7 +298,7 @@ Before finalizing a Tailwind change, check:
 - Is the responsive behavior mobile-first and intentional?
 - Can any CSS be deleted now?
 
-## Practical defaults for agents
+## Practical defaults
 
 When in doubt:
 
