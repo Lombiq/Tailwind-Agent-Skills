@@ -11,8 +11,12 @@
 - Default border and ring color now use `currentColor`; ring width default is 1px.
 - `space-*` and `divide-*` selectors changed; use flex/grid with `gap` if layouts break.
 - Custom utilities should use `@utility` instead of `@layer utilities` or `@layer components`.
+- `@theme` is for design tokens that should create utilities or variants; use `:root` only for plain CSS variables that should not generate Tailwind APIs.
+- `@theme` variables must be top-level, not nested under selectors or media queries.
 - Stacked variants apply left-to-right (reverse order from v3).
 - Arbitrary CSS variable syntax is `bg-(--brand-color)` (not `bg-[--brand-color]`).
 - Transform reset uses `scale-none`, `rotate-none`, `translate-none` (not `transform-none`).
 - `hover:` now only applies on devices that support hover; override if needed.
+- Tailwind scans source files as plain text, so dynamically concatenated class fragments are not detected.
+- Use `@source` for external or unusual source locations, and `@source inline()` only when safelisting is truly necessary.
 - CSS modules and component `<style>` blocks need `@reference` to access theme vars.

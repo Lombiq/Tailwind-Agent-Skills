@@ -8,7 +8,7 @@ compatibility: Requires git, Python 3, and internet access to initialize the Tai
 
 ## Overview
 
-Use this skill to navigate a locally synced Tailwind CSS v4 documentation snapshot and answer development, configuration, and migration questions with official guidance.
+Use this skill to navigate a locally synced Tailwind CSS v4 documentation snapshot and answer development, configuration, migration, implementation, refactor, and review questions with official guidance.
 
 The docs snapshot is not bundled with this skill because the upstream repository is source-available but not open-source. Users must initialize the snapshot themselves and are responsible for complying with the upstream license.
 
@@ -16,10 +16,11 @@ The docs snapshot is not bundled with this skill because the upstream repository
 
 1. Check whether the docs snapshot is initialized (`references/docs/` and `references/docs-index.tsx` exist).
 2. If the snapshot is missing or older than one week, stop and ask to run the initialization step in "Initialization" before continuing. Do not answer the user's question until the snapshot is initialized.
-3. Identify the topic (utility, variant, config, migration, compatibility).
+3. Identify the topic (utility, variant, config, migration, compatibility, implementation, refactor, review).
 4. Find the matching doc in `references/docs-index.tsx`.
 5. Load only the relevant file from `references/docs/`.
-6. Apply guidance and call out any breaking changes or constraints.
+6. For implementation, refactor, or review tasks, also load `references/engineering-playbook.md`.
+7. Apply guidance and call out any breaking changes or constraints.
 
 ## Initialization (required once per install)
 
@@ -35,13 +36,14 @@ If you cannot run tools or have no internet access, ask the user to run the exac
 
 If the snapshot is missing or older than one week, you must ask for permission to run the command or ask the user to run it. Do not proceed with Tailwind guidance until the snapshot is initialized or refreshed.
 
-If initialization is blocked (no internet or no write access), use `references/gotchas.md` as a limited fallback and ask the user to consult the official docs.
+If initialization is blocked (no internet or no write access), use `references/gotchas.md` as a limited fallback and ask the user to consult the official docs. For implementation, refactor, or review tasks, `references/engineering-playbook.md` can also serve as a limited fallback.
 
 ## References map
 
 - `references/docs/` is generated locally and contains the Tailwind v4 MDX docs snapshot.
 - `references/docs-index.tsx` is generated locally and contains the category and slug map used by the docs sidebar.
 - `references/docs-source.txt` captures the upstream repo, commit, and snapshot date (or reports that initialization is pending).
+- `references/engineering-playbook.md` is the agent-oriented implementation, refactor, and review guide.
 - `references/gotchas.md` provides a quick scan of common v4 migration pitfalls.
 
 ## MDX handling
@@ -52,6 +54,7 @@ If initialization is blocked (no internet or no write access), use `references/g
 ## Common entry points
 
 - Migration: `references/docs/upgrade-guide.mdx`, `references/docs/compatibility.mdx`.
+- Implementation/refactor/review: `references/engineering-playbook.md`.
 - Gotchas overview: `references/gotchas.md`.
 - Configuration and directives: `references/docs/functions-and-directives.mdx`, `references/docs/adding-custom-styles.mdx`, `references/docs/theme.mdx`.
 - Variants and responsive patterns: `references/docs/hover-focus-and-other-states.mdx`, `references/docs/responsive-design.mdx`.
