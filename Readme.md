@@ -20,12 +20,13 @@ Do you want something similar for Orchard Core? Check out [Lombiq Orchard Core A
 
 ### `tailwind-4-docs`
 
-An agent-optimized workflow for Tailwind CSS v4 documentation, including a curated gotchas list and a local docs snapshot generator. Your agent should use this during Tailwind 4 development-related tasks.
+An agent-optimized workflow for Tailwind CSS v4 documentation, including a curated gotchas list, an implementation playbook, and a local docs snapshot generator. Your agent should use this during Tailwind 4 development-related tasks.
 
 #### Highlights
 
 - Mirrors the official Tailwind docs structure so agents can load only what they need after initialization.
 - Generates `docs-index.tsx` locally to map categories and slugs to MDX files.
+- Includes an agent-oriented engineering playbook for implementation, refactor, and review tasks.
 - Provides a sync script that can initialize and refresh references after installation.
 - Does not bundle the Tailwind docs themselves due to upstream licensing.
 
